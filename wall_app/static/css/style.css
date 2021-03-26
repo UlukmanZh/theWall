@@ -1,0 +1,64 @@
+body{
+    background-color: rgb(197, 193, 193);
+}
+header{
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(45, 176, 236);
+}
+main{
+    padding: 5rem;
+    height: fit-content;
+    
+}
+#comment_input{
+    width: 600px;
+}
+#comment_field{
+    width: 400px;
+    margin-top: 3rem;
+    padding: 2rem;
+    
+}
+
+#post_box{
+    border: solid 1px;
+    background-color: white;
+    height: 200px;
+    width: 400px;
+    overflow: auto;
+    margin-top: 3rem;
+    padding: 1rem;
+}
+h5,p{
+    color:rgb(45, 176, 236)
+}
+#message_box{
+    padding: 1rem;
+    border: solid 1px;
+    background-color: white;
+    height: 200px;
+    overflow: auto;
+    width: 800px;
+}
+#logo{
+    border: solid 1px;
+    width: 300px;
+    border-radius: 10px;
+    text-align: center;
+    background-color: rgb(74, 74, 216);
+}
+#post_comment{
+    float: right;
+}
+#delete_button{
+    width: 800px;
+}
+#delete_comment_button{
+    width: 400px;
+}
+ul{
+    color: red;
+}
+

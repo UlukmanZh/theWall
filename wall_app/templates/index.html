@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Login & Registration</title>
+</head>
+
+<body>
+    <div id="wrapper" style="display: flex; justify-content: space-evenly; margin-top: 2rem;">
+        <div id="registration" style="min-width: 400px">
+            <h1>Registration</h1>
+            {% if messages %}
+            <ul style = "color: red;" class="messages">
+                {% for message in messages %}
+                {% if message.extra_tags == 'registration' %}
+                <li  class="{{ message.tags }}" >{{ message }}</li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <form action="registration" method="post">
+            {% csrf_token %}
+                <div class="form-group row" style="margin-top: 2rem;">
+                    <label for="first_name" class="col-sm-2 col-form-label;">First Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="first_name" name="first_name">
+                    </div>
+                </div>
+                <div class="form-group row" style="margin-top: 2rem;">
+                    <label for="last_name" class="col-sm-2 col-form-label;">Last Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="last_name" name="last_name">
+                    </div>
+                </div>
+                <div class="form-group row" style="margin-top: 2rem;">
+                    <label for="reg_email" class="col-sm-2 col-form-label;">Email</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="reg_email" name="reg_email">
+                    </div>
+                </div>
+                <div class="form-group row" style="margin-top: 2rem;">
+                    <label for="reg_password" class="col-sm-2 col-form-label;">Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="reg_password" name="reg_password">
+                    </div>
+                </div>
+                <div class="form-group row" style="margin-top: 2rem;">
+                    <label for="confirm_psw" class="col-sm-2 col-form-label;">Confirm PW</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="confirm_psw" name="confirm_psw">
+                    </div>
+                </div>
+                <button style="margin-top: 1rem;" type="submit" class="btn btn-primary">Register</button>
+
+            </form>
+        </div>
+        <div id="login" style="min-width: 400px">
+            <h1>Login</h1>
+            {% if messages %}
+            <ul style= "color: red;" class="messages">
+                {% for message in messages %}
+                {% if message.extra_tags == 'login' %}
+                <li  class="{{ message.tags }}" >{{ message }}</li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <form action="login" method="post">
+            {% csrf_token %}
+                <div class="form-group row" style="margin-top: 2rem;">
+                    <label for="log_email" class="col-sm-2 col-form-label;">Email</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="log_email" name="log_email">
+                    </div>
+                </div>
+                <div class="form-group row" style="margin-top: 2rem;">
+                    <label for="log_password" class="col-sm-2 col-form-label;">Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="log_password" name="log_password">
+                    </div>
+                </div>
+                <button style="margin-top: 1rem;" type="submit" class="btn btn-primary">Log In</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

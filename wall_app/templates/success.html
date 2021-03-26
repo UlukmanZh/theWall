@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Success</title>
+</head>
+
+<body>
+    <div id="wrapper">
+        <header>
+            <div id="logo"><h1>Selfbook</h1></div> 
+            <h1>Welcome {{ first_name }}! <a class="btn btn-primary" href="/logout" role="button">Logout</a></h1>
+        </header>
+        <main>
+            <div id="post">
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    {% if message.extra_tags == 'error_message' %}
+                    <li  class="{{ message.tags }}" >{{ message }}</li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                <form action="/post_message" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="message">Post a message</label>
+                        <textarea class="form-control" id="message" name="message" rows="6"></textarea>
+                        <div style="text-align: end;" id="post_button">
+                            <button style="margin-top: 1rem;" type="submit" class="btn btn-primary">Post Message</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="messages">
+                {% for message in all_messages reversed %}    
+                    <div id="message_box">
+                        <h5>{{ message.user.first_name }} {{ message.user.last_name }}</h5>
+                        <p>{{ message.created_at }}</p>
+                        <h4>{{ message.mes_content }}</h4>
+                    </div>
+
+                    {% if message.user.id == id %}
+                    <form action="/delete_message" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="delete" value= "{{ message.id }}">
+                        <div style="text-align: end;" id="delete_button">
+                            <button style="margin-top: 0.5rem;" type="submit" class="btn btn-warning">Delete message</button>
+                        </div>
+                    </form>
+                    {% endif %}
+                    <div id="post_comment">
+                        {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            {% if message.extra_tags == 'error_comment' %}
+                            <li  class="{{ message.tags }}" >{{ message }}</li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        <form action="/post_comment" method="post">
+                            {% csrf_token %}
+                            <div id="comment_content" class="form-group">
+                                <div id="comment_input">
+                                    <label for="comment">Post a comment</label>
+                                    <textarea class="form-control" id="comment" name="comment" rows="2"></textarea>
+                                    <input type="hidden" name="message_id" value="{{ message.id }}">
+                                </div>    
+                                <div style="text-align: end;" id="post_button">
+                                    <button style="margin-top: 1rem;" type="submit" class="btn btn-success">Post Comment</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="comment_field">
+                        {% for comment in message.comments.all reversed %}
+                            <div id="post_box">
+                                <h5>{{ comment.user.first_name }} {{ comment.user.last_name }}</h5>
+                                <p>{{ comment.created_at }}</p>
+                                <h4>{{ comment.com_content }}</h4>
+                            </div>
+                            {% if comment.user.id == id %}
+                            <form action="/delete_comment" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="delete" value= "{{ comment.id }}">
+                                <div style="text-align: end;" id="delete_comment_button">
+                                    <button style="margin-top: 0.5rem;" type="submit" class="btn btn-primary">Delete comment</button>
+                                </div>
+                            </form>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>
